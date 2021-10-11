@@ -1,21 +1,50 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Image, ScrollView, TextInput, Button } from 'react-native';
 
-export default function App() {
+const Lave = (props) => {
+  const [isHungry, setIsHungry] = useState(true);
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View>
+      <Text>
+        Je suis {props.name}, et je veux {isHungry ? ":" : "plus : "} {props.food}!
+      </Text>
+      <View style={{paddingHorizontal: '10%'}}>
+        <Button
+          onPress={() => {
+            {isHungry ? setIsHungry(false) : setIsHungry(true)}
+          }}
+          color={isHungry ? "red" : "black"}
+          title={isHungry ? "donner : " + props.food : "Y'a plus " + props.food} // {props.food=="" ? "..." : props.food}
+        />
+      </View>
+    </View>
+  );
+};
+
+const App = () => {
+  const [text, setText] = useState('');
+  return (
+    <View>
+      <Image
+        source={{
+          uri: 'https://cdn.futura-sciences.com/buildsv6/images/wide1920/7/7/e/77eaf47d0c_97018_difference-magma-lave.jpg',
+        }}
+        style={{ width: '100%', height: '50%' }}
+      />
+      <ScrollView>
+        <View style={{paddingHorizontal: '25%', paddingVertical: '5%'}}>
+          <TextInput
+            style={{height: 40, backgroundColor: "#DDDDDD", color: "#666666", paddingHorizontal: 20}}
+            placeholder="Que veux tu donner?"
+            onChangeText={text => setText(text)}
+            defaultValue={text}
+          />
+        </View>
+        <Lave name="Souheil" food={text} />
+        <Lave name="Jamie" food={text} />
+      </ScrollView>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
