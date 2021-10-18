@@ -1,50 +1,112 @@
-import React, { useState } from 'react';
-import { View, Text, Image, ScrollView, TextInput, Button } from 'react-native';
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ * @flow strict-local
+ */
 
-const Lave = (props) => {
-  const [isHungry, setIsHungry] = useState(true);
+import React from 'react';
+import type {Node} from 'react';
+import {
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  useColorScheme,
+  View,
+} from 'react-native';
+
+import {
+  Colors,
+  DebugInstructions,
+  Header,
+  LearnMoreLinks,
+  ReloadInstructions,
+} from 'react-native/Libraries/NewAppScreen';
+
+const Section = ({children, title}): Node => {
+  const isDarkMode = useColorScheme() === 'dark';
   return (
-    <View>
-      <Text>
-        Je suis {props.name}, et je veux {isHungry ? ":" : "plus : "} {props.food}!
+    <View style={styles.sectionContainer}>
+      <Text
+        style={[
+          styles.sectionTitle,
+          {
+            color: isDarkMode ? Colors.white : Colors.black,
+          },
+        ]}>
+        {title}
       </Text>
-      <View style={{paddingHorizontal: '10%'}}>
-        <Button
-          onPress={() => {
-            {isHungry ? setIsHungry(false) : setIsHungry(true)}
-          }}
-          color={isHungry ? "red" : "black"}
-          title={isHungry ? "donner : " + props.food : "Y'a plus " + props.food} // {props.food=="" ? "..." : props.food}
-        />
-      </View>
+      <Text
+        style={[
+          styles.sectionDescription,
+          {
+            color: isDarkMode ? Colors.light : Colors.dark,
+          },
+        ]}>
+        {children}
+      </Text>
     </View>
   );
 };
 
-const App = () => {
-  const [text, setText] = useState('');
+const App: () => Node = () => {
+  const isDarkMode = useColorScheme() === 'dark';
+
+  const backgroundStyle = {
+    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  };
+
   return (
-    <View>
-      <Image
-        source={{
-          uri: 'https://cdn.futura-sciences.com/buildsv6/images/wide1920/7/7/e/77eaf47d0c_97018_difference-magma-lave.jpg',
-        }}
-        style={{ width: '100%', height: '50%' }}
-      />
-      <ScrollView>
-        <View style={{paddingHorizontal: '25%', paddingVertical: '5%'}}>
-          <TextInput
-            style={{height: 40, backgroundColor: "#DDDDDD", color: "#666666", paddingHorizontal: 20}}
-            placeholder="Que veux tu donner?"
-            onChangeText={text => setText(text)}
-            defaultValue={text}
-          />
+    <SafeAreaView style={backgroundStyle}>
+      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+      <ScrollView
+        contentInsetAdjustmentBehavior="automatic"
+        style={backgroundStyle}>
+        <Header />
+        <View
+          style={{
+            backgroundColor: isDarkMode ? Colors.black : Colors.white,
+          }}>
+          <Section title="Step One">
+            Edit <Text style={styles.highlight}>App.js</Text> to change this
+            screen and then come back to see your edits.
+          </Section>
+          <Section title="See Your Changes">
+            <ReloadInstructions />
+          </Section>
+          <Section title="Debug">
+            <DebugInstructions />
+          </Section>
+          <Section title="Learn More">
+            Read the docs to discover what to do next:
+          </Section>
+          <LearnMoreLinks />
         </View>
-        <Lave name="Souheil" food={text} />
-        <Lave name="Jamie" food={text} />
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
-}
+};
+
+const styles = StyleSheet.create({
+  sectionContainer: {
+    marginTop: 32,
+    paddingHorizontal: 24,
+  },
+  sectionTitle: {
+    fontSize: 24,
+    fontWeight: '600',
+  },
+  sectionDescription: {
+    marginTop: 8,
+    fontSize: 18,
+    fontWeight: '400',
+  },
+  highlight: {
+    fontWeight: '700',
+  },
+});
 
 export default App;
