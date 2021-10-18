@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "azssxs.app"
-               BlueprintName = "azssxs"
-               ReferencedContainer = "container:azssxs.xcodeproj">
+               BuildableName = "redditech.app"
+               BlueprintName = "redditech"
+               ReferencedContainer = "container:redditech.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "azssxsTests.xctest"
-               BlueprintName = "azssxsTests"
-               ReferencedContainer = "container:azssxs.xcodeproj">
+               BuildableName = "redditechTests.xctest"
+               BlueprintName = "redditechTests"
+               ReferencedContainer = "container:redditech.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "azssxs.app"
-            BlueprintName = "azssxs"
-            ReferencedContainer = "container:azssxs.xcodeproj">
+            BuildableName = "redditech.app"
+            BlueprintName = "redditech"
+            ReferencedContainer = "container:redditech.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "azssxs.app"
-            BlueprintName = "azssxs"
-            ReferencedContainer = "container:azssxs.xcodeproj">
+            BuildableName = "redditech.app"
+            BlueprintName = "redditech"
+            ReferencedContainer = "container:redditech.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
