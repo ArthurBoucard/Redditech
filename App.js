@@ -9,8 +9,13 @@
 import React, { useCallback, useState } from 'react';
 import { View, Text, Image, ScrollView, TextInput, Button } from 'react-native';
 import { authorize } from 'react-native-app-auth'
+import axios from 'axios';
 
 const App = () => {
+
+  const [apiData, setapiData] = useState(
+    { token : null, tokenExpiration : null, refreshToken : null }
+  )
 
   const config = {
     redirectUrl: 'com.redditech://oauth2redirect/reddit',
@@ -32,13 +37,32 @@ const App = () => {
     async call => {
       try {
         const authState = await authorize(config);
-        console.log(authState)
+        setapiData(
+          { token : authState.accessToken,
+            tokenExpiration : authState.accessTokenExpirationDate,
+            refreshToken : authState.refreshToken }
+        )
       } catch(e) {
         console.log(e)
       }
     }
   )
   Auth();
+  console.log(apiData.token)
+
+  const options = {
+    method: 'GET',
+    url: 'https://oauth.reddit.com/api/v1/me',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization: "Bearer " + apiData.token,
+    },
+  };
+  axios.request(options).then(function (res) {
+    console.log(res.data);
+  }).catch(function (error) {
+    console.error(error);
+  });
 
   return (
     <View>
