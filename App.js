@@ -1,55 +1,38 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+import * as React from 'react';
+import { View, Text} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import React, { useCallback, useState } from 'react';
-import { View, Text, Image, ScrollView, TextInput, Button } from 'react-native';
-import { authorize } from 'react-native-app-auth'
+import Home from './components/Home'
+import Profile from './components/Profile'
 
-const App = () => {
-
-  const config = {
-    redirectUrl: 'com.redditech://oauth2redirect/reddit',
-    clientId: 'fcafYt6_OhrlQEN6NTTyUQ',
-    clientSecret: '',
-    scopes: ['identity'],
-    serviceConfiguration: {
-      authorizationEndpoint: 'https://www.reddit.com/api/v1/authorize.compact',
-      tokenEndpoint: 'https://www.reddit.com/api/v1/access_token',
-    },
-    customHeaders: {
-      token: {
-        Authorization: 'Basic ZmNhZll0Nl9PaHJsUUVONk5UVHlVUQ==',
-      },
-    },
-  };
-  
-  const Auth = useCallback(
-    async call => {
-      try {
-        const authState = await authorize(config);
-        console.log(authState)
-      } catch(e) {
-        console.log(e)
-      }
-    }
-  )
-  Auth();
-
+function DetailsScreen() {
   return (
-    <View>
-      <Image
-        source={{
-          uri: 'https://cdn.futura-sciences.com/buildsv6/images/wide1920/7/7/e/77eaf47d0c_97018_difference-magma-lave.jpg',
-        }}
-        style={{ width: '100%', height: '50%' }}
-      />
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Details Screen</Text>
     </View>
   );
-};
+}
+
+const Stack = createNativeStackNavigator();
+
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Redditech">
+        <Stack.Screen name="Redditech" component={Home} options={{
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerStyle: {
+            backgroundColor: 'lightseagreen',
+          }
+        }} />
+        <Stack.Screen name="Profile" component={Profile} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
 
 export default App;
