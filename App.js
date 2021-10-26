@@ -18,6 +18,10 @@ function App() {
     { token : null, tokenExpiration : null, refreshToken : null }
   )
 
+  const [apiData, setapiData] = useState(
+    { token : null, tokenExpiration : null, refreshToken : null }
+  )
+
   const config = {
     redirectUrl: 'com.redditech://oauth2redirect/reddit',
     clientId: 'fcafYt6_OhrlQEN6NTTyUQ',
