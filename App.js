@@ -14,7 +14,7 @@ function App() {
   return (
     <NavigationContainer>
       <StatusBar
-        backgroundColor="lightseagreen" />
+        backgroundColor="#ffa31a" />
       <Stack.Navigator initialRouteName="Redditech">
         <Stack.Screen name="Redditech" component={Home} options={{
           title: 'Redditech',
@@ -23,14 +23,14 @@ function App() {
             fontWeight: 'bold',
           },
           headerStyle: {
-            backgroundColor: 'lightseagreen',
+            backgroundColor: '#ffa31a',
           }
         }} />
         <Stack.Screen name="Profile" component={Profile} options={{
           headerTintColor: '#fff',
           headerTitleStyle: {
             fontWeight: 'bold',
-          }, headerStyle: { backgroundColor: 'lightseagreen' }
+          }, headerStyle: { backgroundColor: '#ffa31a' }
         }} />
         <Stack.Screen name="Search" component={Search} />
         <Stack.Screen name="Settings" component={Settings} />

@@ -31,7 +31,7 @@ function Profile({ navigation }) {
             },
             },
         };
-        
+
         const Auth = useCallback(
             async call => {
             try {
@@ -75,7 +75,7 @@ function Profile({ navigation }) {
                     </View>
                 </View>
 
-                <FAB title="Settings" color='lightseagreen' placement='right' icon={
+                <FAB title="Settings" color='#ffa31a' placement='right' icon={
                     <Icon
                         name="settings"
                         size={20}
@@ -90,7 +90,7 @@ function Profile({ navigation }) {
 
 const styles = StyleSheet.create({
     header: {
-        backgroundColor: "lightseagreen",
+        backgroundColor: "#ffa31a",
         height: 200,
     },
     avatar: {
