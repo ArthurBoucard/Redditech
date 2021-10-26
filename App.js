@@ -1,17 +1,22 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React, { useCallback, useState } from 'react';
-import { View, Text, Image, ScrollView, TextInput, Button } from 'react-native';
+import { View, Text, StyleSheet, StatusBar } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { authorize } from 'react-native-app-auth'
 import axios from 'axios';
 
-const App = () => {
+import Home from './components/Home'
+import Search from './components/Search'
+import Profile from './components/Profile'
+import Settings from './components/Settings'
+
+const Stack = createNativeStackNavigator();
+
+function App() {
+
+  const [apiData, setapiData] = useState(
+    { token : null, tokenExpiration : null, refreshToken : null }
+  )
 
   const [apiData, setapiData] = useState(
     { token : null, tokenExpiration : null, refreshToken : null }
@@ -63,17 +68,33 @@ const App = () => {
   }).catch(function (error) {
     console.error(error);
   });
-
+  
   return (
-    <View>
-      <Image
-        source={{
-          uri: 'https://cdn.futura-sciences.com/buildsv6/images/wide1920/7/7/e/77eaf47d0c_97018_difference-magma-lave.jpg',
-        }}
-        style={{ width: '100%', height: '50%' }}
-      />
-    </View>
+    <NavigationContainer>
+      <StatusBar
+        backgroundColor="lightseagreen" />
+      <Stack.Navigator initialRouteName="Redditech">
+        <Stack.Screen name="Redditech" component={Home} options={{
+          title: 'Redditech',
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerStyle: {
+            backgroundColor: 'lightseagreen',
+          }
+        }} />
+        <Stack.Screen name="Profile" component={Profile} options={{
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          }, headerStyle: { backgroundColor: 'lightseagreen' }
+        }} />
+        <Stack.Screen name="Search" component={Search} />
+        <Stack.Screen name="Settings" component={Settings} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-};
+}
 
 export default App;
