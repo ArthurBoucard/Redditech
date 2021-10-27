@@ -46,25 +46,31 @@ function Profile({ navigation }) {
                     onPress={() => navigation.navigate('Connection')}
                 />
             :
-                <View style={{height:"100%"}}>
-                    <View style={styles.header}></View>
-                    <Image style={styles.avatar} source={{ uri: 'https://bootdey.com/img/Content/avatar/avatar6.png' }} />
-                    <View style={styles.body}>
-                        <View>
-                            <Text style={styles.name}>{!User.all ? "..." : User.all.name}</Text>
-                            <Text style={styles.description}>{!User.all ? "..." : User.all.subreddit.public_description}</Text>
-
+                <View>
+                    {!User.all ? 
+                        <Text>Loading...</Text>
+                    :
+                        <View style={{height:"100%"}}>
+                            <View style={styles.header}></View>
+                            <Image style={styles.avatar} source={{ uri: (User.all.icon_img).split("?")[0] }} />
+                            <View style={styles.body}>
+                                <View>
+                                    <Text style={styles.name}>{User.all.name}</Text>
+                                    <Text style={styles.description}>{User.all.subreddit.public_description}</Text>
+        
+                                </View>
+                            </View>
+        
+                            <FAB title="Settings" color='#ffa31a' placement='right' icon={
+                                <Icon
+                                    name="settings"
+                                    size={20}
+                                    color="white"
+                                />}
+                                onPress={() => navigation.navigate('Settings')}
+                            />
                         </View>
-                    </View>
-
-                    <FAB title="Settings" color='#ffa31a' placement='right' icon={
-                        <Icon
-                            name="settings"
-                            size={20}
-                            color="white"
-                        />}
-                        onPress={() => navigation.navigate('Settings')}
-                    />
+                    }
                 </View>
             }
         </View>
