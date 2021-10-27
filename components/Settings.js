@@ -1,11 +1,13 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, StatusBar } from 'react-native'
 
 export default class Settings extends React.Component {
 
     render() {
         return (
             <View style={style.view}>
+                <StatusBar
+                    backgroundColor="white" barStyle="dark-content" />
                 <Text style={style.title}> Settings </Text>
                 <Text> Settings </Text>
             </View>
