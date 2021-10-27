@@ -10,7 +10,7 @@ import Settings from './components/Settings'
 const Stack = createNativeStackNavigator();
 
 function App() {
-  
+
   return (
     <NavigationContainer>
       <StatusBar
