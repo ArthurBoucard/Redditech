@@ -18,6 +18,7 @@
     "react-native": "0.66.1",
     "react-native-app-auth": "^6.4.0",
     "react-native-elements": "^3.4.2",
+    "react-native-floating-action": "^1.22.0",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.8.0",
     "react-native-vector-icons": "^9.0.0"

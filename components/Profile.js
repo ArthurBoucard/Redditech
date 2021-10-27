@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { Icon, FAB, Button, Tab } from 'react-native-elements';
 import './Connection';
+import Filter from "../components/Filter"
 import axios from 'axios';
 
 function Profile({ navigation }) {
@@ -71,7 +72,6 @@ function Profile({ navigation }) {
                                     <Text style={styles.followers}>{User.all.subreddit.subscribers} followers</Text>
                                 </View>
                             </View>
-
                             <FAB title="Settings" color='#ffa31a' placement='right' icon={
                                 <Icon
                                     name="settings"
