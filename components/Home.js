@@ -5,12 +5,6 @@ import { Icon } from "react-native-elements";
 import Feed from '../components/Feed'
 import Filter from '../components/Filter'
 
-const logo = {
-    uri: 'https://reactnative.dev/img/tiny_logo.png',
-    width: 64,
-    height: 64
-  };
-
 function Home({ navigation }) {
 
     React.useLayoutEffect(() => {
