@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, Button } from 'react-native'
+import { View, ScrollView, Text, StyleSheet, Image } from 'react-native'
 import { Icon } from "react-native-elements";
 
 import Feed from '../components/Feed'
@@ -20,9 +20,9 @@ function Home({ navigation }) {
     }, [navigation]);
 
     return (
-        <View>
+        <ScrollView>
             <Feed/>
-        </View>
+        </ScrollView>
     )
 }
 

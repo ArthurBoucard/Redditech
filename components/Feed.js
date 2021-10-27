@@ -1,63 +1,67 @@
-import React from 'react'
+import React, { useCallback, useState, useEffect } from 'react'
 import { View, Text, StyleSheet, Image, ScrollView } from 'react-native'
 import { Icon, Button, ListItem, Card } from 'react-native-elements';
+import axios from 'axios';
 
-const users = [
-    {
-        name: 'brynn',
-        avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg'
-    },
-    {
-        name: 'hello',
-        avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg'
-    },
-    {
-        name: 'world',
-        avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg'
-    },
-    {
-        name: 'john',
-        avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg'
-    },
-    {
-        name: 'dohe',
-        avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg'
-    }
-]
+function Feed() {
 
-export default class Feed extends React.Component {
+    const [SubReddit, setSubReddit] = useState(
+        { all : null }
+    )
+    
+    const options = {
+        method: 'GET',
+        url: 'https://www.reddit.com/r/all/' + 'top' + '.json?limit=50',
+    };
 
-    render() {
-        return (
-            <View>
+    useEffect(() => {
+        axios.request(options).then(function (res) {
+            setSubReddit(
                 {
-                    users.map((item, index) => {
-                        return (
-                            <Card>
-                                <Card.Title>CARD WITH DIVIDER</Card.Title>
-                                <Card.Divider />
-                                <View style={{
-                                    position: "relative",
-                                    alignItems: "center"
-                                }}>
-                                    <Image
-                                        style={{ width: "100%", height: 100 }}
-                                        resizeMode="cover"
-                                        source={{ uri: item.avatar }}
-                                    />
-                                    <Text>{item.name}</Text>
-                                </View>
-                            </Card>
-                        );
-                    })
+                    all : res.data
                 }
-            </View>
-        )
-    }
+            )
+        }).catch(function (error) {
+            console.error(error);
+        });
+        // console.log(SubReddit.all);
+    }, []);
+    // console.log(SubReddit.all.data.children[0])
+
+    return (
+        <View>
+            {!SubReddit.all ?
+                <View></View>
+            :
+                (SubReddit.all.data.children).map((item, index) => {
+                    return (
+                        <Card>
+                            <View key={index} style={{
+                                position: "relative",
+                                alignItems: "center"
+                            }}>
+                                <Image
+                                    style={{ width: "100%", height: item.data.thumbnail_height }}
+                                    resizeMode="cover"
+                                    source={{ uri: item.data.thumbnail }}
+                                />
+                                <Text style={styles.text}>{!SubReddit.all ? "Loading" : item.data.subreddit_name_prefixed}</Text>
+                                <Text style={styles.text}>{!SubReddit.all ? "Loading" : item.data.title}</Text>
+                                <Text style={styles.text}>{!SubReddit.all ? "Loading" : item.data.author}</Text>
+                                <Text style={styles.text}>{!SubReddit.all ? "Loading" : item.data.created}</Text>
+                            </View>
+                        </Card>
+                    );
+                })
+            }
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({
     text: {
-        fontSize: 42,
+        color: 'black',
     },
 });
+
+export default Feed;
