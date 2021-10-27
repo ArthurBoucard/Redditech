@@ -4,24 +4,24 @@ import {
     Text,
     View,
     Image,
-    Button
+    ActivityIndicator
 } from 'react-native';
-import { Icon, FAB } from 'react-native-elements';
+import { Icon, FAB, Button } from 'react-native-elements';
 import './Connection';
 import axios from 'axios';
 
 function Profile({ navigation }) {
 
     const [User, setUser] = useState(
-        { all : null }
+        { all: null }
     )
-    
+
     const options = {
         method: 'GET',
         url: 'https://oauth.reddit.com/api/v1/me',
         headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        Authorization: "Bearer " + global.Token,
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Authorization: "Bearer " + global.Token,
         },
     };
 
@@ -29,7 +29,7 @@ function Profile({ navigation }) {
         axios.request(options).then(function (res) {
             setUser(
                 {
-                    all : res.data
+                    all: res.data
                 }
             )
         }).catch(function (error) {
@@ -40,27 +40,37 @@ function Profile({ navigation }) {
 
     return (
         <View>
-            {!global.Token ? 
-                <Button
-                    title="connection"
-                    onPress={() => navigation.navigate('Connection')}
-                />
-            :
+            {!global.Token ?
+                <View style={{ height: "100%" }}>
+                    <FAB title="connection" icon={{
+                        name: "login",
+                        size: 15,
+                        color: "white"
+                    }}
+                        style={{ height: "100%" }}
+                        color="#ffa31a"
+                        onPress={() => navigation.navigate('Connection')} />
+                </View>
+
+                :
                 <View>
-                    {!User.all ? 
-                        <Text>Loading...</Text>
-                    :
-                        <View style={{height:"100%"}}>
-                            <View style={styles.header}></View>
+                    {!User.all ?
+                        <View style={{ height: "100%" }}>
+                            <ActivityIndicator style={{ height: "100%" }} size="large" color="#ffa31a" />
+                        </View>
+                        :
+                        <View style={{ height: "100%" }}>
+                            <View style={styles.header}>
+                                <Image style={styles.banner} source={{ uri: (User.all.subreddit.banner_img).split("?")[0] }} />
+                            </View>
                             <Image style={styles.avatar} source={{ uri: (User.all.icon_img).split("?")[0] }} />
                             <View style={styles.body}>
                                 <View>
                                     <Text style={styles.name}>{User.all.name}</Text>
                                     <Text style={styles.description}>{User.all.subreddit.public_description}</Text>
-        
                                 </View>
                             </View>
-        
+
                             <FAB title="Settings" color='#ffa31a' placement='right' icon={
                                 <Icon
                                     name="settings"
@@ -92,6 +102,11 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         position: 'absolute',
         marginTop: 130
+    },
+    banner: {
+        width: "100%",
+        height: 200,
+        alignSelf: 'center',
     },
     body: {
         marginTop: 70,
