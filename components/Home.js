@@ -21,7 +21,6 @@ function Home({ navigation }) {
 
     return (
         <View>
-            <Filter/>
             <Feed/>
         </View>
     )
