@@ -6,7 +6,7 @@ import {
     Image,
     ActivityIndicator
 } from 'react-native';
-import { Icon, FAB, Button } from 'react-native-elements';
+import { Icon, FAB, Button, Tab } from 'react-native-elements';
 import './Connection';
 import axios from 'axios';
 
@@ -59,7 +59,7 @@ function Profile({ navigation }) {
                             <ActivityIndicator style={{ height: "100%" }} size="large" color="#ffa31a" />
                         </View>
                         :
-                        <View style={{ height: "100%" }}>
+                        <View style={{ height: "100%", backgroundColor: "white" }}>
                             <View style={styles.header}>
                                 <Image style={styles.banner} source={{ uri: (User.all.subreddit.banner_img).split("?")[0] }} />
                             </View>
@@ -67,7 +67,9 @@ function Profile({ navigation }) {
                             <View style={styles.body}>
                                 <View>
                                     <Text style={styles.name}>{User.all.name}</Text>
+                                    <Text style={styles.description}>{User.all.subreddit.display_name_prefixed} ○ {User.all.created} ○ {User.all.total_karma} karma</Text>
                                     <Text style={styles.description}>{User.all.subreddit.public_description}</Text>
+                                    <Text style={styles.followers}>{User.all.subreddit.subscribers} followers</Text>
                                 </View>
                             </View>
 
@@ -109,11 +111,11 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     body: {
-        marginTop: 70,
+        marginTop: 70
     },
     name: {
         fontSize: 28,
-        color: "#696969",
+        color: "black",
         fontWeight: "600",
         marginTop: 10,
         textAlign: 'center'
@@ -122,6 +124,13 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: "#696969",
         marginTop: 10,
+        textAlign: 'center'
+    },
+    followers: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: "black",
+        marginTop: 30,
         textAlign: 'center'
     }
 });
