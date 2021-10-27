@@ -29,44 +29,34 @@ export default class Feed extends React.Component {
 
     render() {
         return (
-            <SafeAreaView style={styles.container}>
-                <ScrollView style={styles.scrollView}>
-                    {
-                        users.map((u, i) => {
-                            return (
-                                <Card>
-                                    <Card.Title>CARD WITH DIVIDER</Card.Title>
-                                    <Card.Divider />
-                                    <View key={i} style={{
-                                        position: "relative",
-                                        alignItems: "center"
-                                    }}>
-                                        <Image
-                                            style={{ width: "100%", height: 100 }}
-                                            resizeMode="cover"
-                                            source={{ uri: u.avatar }}
-                                        />
-                                        <Text>{u.name}</Text>
-                                    </View>
-                                </Card>
-                            );
-                        })
-                    }
-                </ScrollView>
-            </SafeAreaView>
+            <View>
+                {
+                    users.map((item, index) => {
+                        return (
+                            <Card>
+                                <Card.Title>CARD WITH DIVIDER</Card.Title>
+                                <Card.Divider />
+                                <View style={{
+                                    position: "relative",
+                                    alignItems: "center"
+                                }}>
+                                    <Image
+                                        style={{ width: "100%", height: 100 }}
+                                        resizeMode="cover"
+                                        source={{ uri: item.avatar }}
+                                    />
+                                    <Text>{item.name}</Text>
+                                </View>
+                            </Card>
+                        );
+                    })
+                }
+            </View>
         )
     }
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingTop: StatusBar.currentHeight,
-    },
-    scrollView: {
-        backgroundColor: 'pink',
-        marginHorizontal: 20,
-    },
     text: {
         fontSize: 42,
     },
