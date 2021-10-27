@@ -51,7 +51,6 @@ function Profile({ navigation }) {
                         color="#ffa31a"
                         onPress={() => navigation.navigate('Connection')} />
                 </View>
-
                 :
                 <View>
                     {!User.all ?
