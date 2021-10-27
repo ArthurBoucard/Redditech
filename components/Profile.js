@@ -1,91 +1,74 @@
-import React, { useCallback, useState } from 'react';
-import { authorize } from 'react-native-app-auth'
-import axios from 'axios';
-
+import React, { useCallback, useState, useEffect } from 'react';
 import {
     StyleSheet,
     Text,
     View,
-    Image
+    Image,
+    Button
 } from 'react-native';
 import { Icon, FAB } from 'react-native-elements';
+import './Connection';
+import axios from 'axios';
 
 function Profile({ navigation }) {
 
-        const [apiData, setapiData] = useState(
-            { token : null, tokenExpiration : null, refreshToken : null }
-        )
+    const [User, setUser] = useState(
+        { all : null }
+    )
+    
+    const options = {
+        method: 'GET',
+        url: 'https://oauth.reddit.com/api/v1/me',
+        headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: "Bearer " + global.Token,
+        },
+    };
 
-        const config = {
-            redirectUrl: 'com.redditech://oauth2redirect/reddit',
-            clientId: 'fcafYt6_OhrlQEN6NTTyUQ',
-            clientSecret: '',
-            scopes: ['identity'],
-            serviceConfiguration: {
-            authorizationEndpoint: 'https://www.reddit.com/api/v1/authorize.compact',
-            tokenEndpoint: 'https://www.reddit.com/api/v1/access_token',
-            },
-            customHeaders: {
-            token: {
-                Authorization: 'Basic ZmNhZll0Nl9PaHJsUUVONk5UVHlVUQ==',
-            },
-            },
-        };
-
-        const Auth = useCallback(
-            async call => {
-            try {
-                const authState = await authorize(config);
-                setapiData(
-                { token : authState.accessToken,
-                    tokenExpiration : authState.accessTokenExpirationDate,
-                    refreshToken : authState.refreshToken }
-                )
-            } catch(e) {
-                console.log(e)
-            }
-            }
-        )
-        Auth();
-        console.log(apiData.token)
-
-        const options = {
-            method: 'GET',
-            url: 'https://oauth.reddit.com/api/v1/me',
-            headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            Authorization: "Bearer " + apiData.token,
-            },
-        };
+    useEffect(() => {
         axios.request(options).then(function (res) {
-            console.log(res.data);
+            setUser(
+                {
+                    all : res.data
+                }
+            )
         }).catch(function (error) {
             console.error(error);
         });
+        console.log(User.all);
+    }, []);
 
-        return (
-            <View style={{height:"100%"}}>
-                <View style={styles.header}></View>
-                <Image style={styles.avatar} source={{ uri: 'https://bootdey.com/img/Content/avatar/avatar6.png' }} />
-                <View style={styles.body}>
-                    <View>
-                        <Text style={styles.name}>John Doe</Text>
-                        <Text style={styles.description}>Lorem ipsum dolor sit amet, saepe sapientem eu nam. Qui ne assum electram expetendis, omittam deseruisse consequuntur ius an,</Text>
-
-                    </View>
-                </View>
-
-                <FAB title="Settings" color='#ffa31a' placement='right' icon={
-                    <Icon
-                        name="settings"
-                        size={20}
-                        color="white"
-                    />}
-                    onPress={() => navigation.navigate('Settings')}
+    return (
+        <View>
+            {!global.Token ? 
+                <Button
+                    title="connection"
+                    onPress={() => navigation.navigate('Connection')}
                 />
+            :
+                <View style={{height:"100%"}}>
+                    <View style={styles.header}></View>
+                    <Image style={styles.avatar} source={{ uri: 'https://bootdey.com/img/Content/avatar/avatar6.png' }} />
+                    <View style={styles.body}>
+                        <View>
+                            <Text style={styles.name}>{!User.all ? "..." : User.all.name}</Text>
+                            <Text style={styles.description}>{!User.all ? "..." : User.all.subreddit.public_description}</Text>
 
-            </View>
-        )
+                        </View>
+                    </View>
+
+                    <FAB title="Settings" color='#ffa31a' placement='right' icon={
+                        <Icon
+                            name="settings"
+                            size={20}
+                            color="white"
+                        />}
+                        onPress={() => navigation.navigate('Settings')}
+                    />
+                </View>
+            }
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({
