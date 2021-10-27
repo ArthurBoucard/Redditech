@@ -13,7 +13,7 @@ const Stack = createNativeStackNavigator();
 function App() {
 
   global.Token = null
-  
+
   return (
     <NavigationContainer>
       <StatusBar
