@@ -3,30 +3,6 @@ import { View, Text, StyleSheet, Image, ScrollView } from 'react-native'
 import { Icon, Button, ListItem, Card } from 'react-native-elements';
 import axios from 'axios';
 
-const users = [
-    {
-        name: 'brynn',
-        avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg'
-    },
-    {
-        name: 'hello',
-        avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg'
-    },
-    {
-        name: 'world',
-        avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg'
-    },
-    {
-        name: 'john',
-        avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg'
-    },
-    {
-        name: 'dohe',
-        avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg'
-    }
-]
-
-
 function Feed() {
 
     const [SubReddit, setSubReddit] = useState(
@@ -35,7 +11,7 @@ function Feed() {
     
     const options = {
         method: 'GET',
-        url: 'https://www.reddit.com/r/all/' + 'top' + '.json?limit=1',
+        url: 'https://www.reddit.com/r/all/' + 'top' + '.json?limit=50',
     };
 
     useEffect(() => {
@@ -48,31 +24,31 @@ function Feed() {
         }).catch(function (error) {
             console.error(error);
         });
-        console.log(SubReddit.all);
+        // console.log(SubReddit.all);
     }, []);
-    // console.log(SubReddit.all.data.children);
+    // console.log(SubReddit.all.data.children[0])
 
     return (
         <View>
-            {
-                users.map((item, index) => {
+            {!SubReddit.all ?
+                <View></View>
+            :
+                (SubReddit.all.data.children).map((item, index) => {
                     return (
                         <Card>
-                            <Card.Title>CARD WITH DIVIDER</Card.Title>
-                            <Card.Divider />
-                            <View style={{
+                            <View key={index} style={{
                                 position: "relative",
                                 alignItems: "center"
                             }}>
                                 <Image
-                                    style={{ width: "100%", height: 100 }}
+                                    style={{ width: "100%", height: item.data.thumbnail_height }}
                                     resizeMode="cover"
-                                    source={{ uri: item.avatar }}
+                                    source={{ uri: item.data.thumbnail }}
                                 />
-                                <Text>{!SubReddit.all ? "Loading" : SubReddit.all.data.children.subreddit}</Text>
-                                <Text>{!SubReddit.all ? "Loading" : SubReddit.all.data.children.title}</Text>
-                                <Text>{!SubReddit.all ? "Loading" : SubReddit.all.data.children.author}</Text>
-                                <Text>{!SubReddit.all ? "Loading" : SubReddit.all.data.children.created}</Text>
+                                <Text style={styles.text}>{!SubReddit.all ? "Loading" : item.data.subreddit_name_prefixed}</Text>
+                                <Text style={styles.text}>{!SubReddit.all ? "Loading" : item.data.title}</Text>
+                                <Text style={styles.text}>{!SubReddit.all ? "Loading" : item.data.author}</Text>
+                                <Text style={styles.text}>{!SubReddit.all ? "Loading" : item.data.created}</Text>
                             </View>
                         </Card>
                     );
@@ -84,7 +60,7 @@ function Feed() {
 
 const styles = StyleSheet.create({
     text: {
-        fontSize: 42,
+        color: 'black',
     },
 });
 
