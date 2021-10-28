@@ -9,7 +9,7 @@ import {
 import { Icon, FAB, Button, Tab } from 'react-native-elements';
 import axios from 'axios';
 
-function Profile({ navigation }) {
+function Subreddit({ navigation }) {
 
     const [User, setUser] = useState(
         { all: null }
@@ -41,7 +41,7 @@ function Profile({ navigation }) {
         <View>
             {!global.Token ?
                 <View style={{ height: "100%" }}>
-                    <FAB title="connection" icon={{
+                    <FAB title="subreddit" icon={{
                         name: "login",
                         size: 15,
                         color: "white"
@@ -70,6 +70,7 @@ function Profile({ navigation }) {
                                     <Text style={styles.followers}>{User.all.subreddit.subscribers} followers</Text>
                                 </View>
                             </View>
+
                             <FAB title="Settings" color='#ffa31a' placement='right' icon={
                                 <Icon
                                     name="settings"
@@ -132,4 +133,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Profile;
+export default Subreddit;
