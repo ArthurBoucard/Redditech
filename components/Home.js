@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, ScrollView, RefreshControl, StyleSheet, Image } from 'react-native'
+import { View, ScrollView, RefreshControl, StyleSheet, Image, Text } from 'react-native'
 import { Icon } from "react-native-elements";
 
 import Feed from '../components/Feed'
@@ -22,9 +22,9 @@ function Home({ navigation }) {
     React.useLayoutEffect(() => {
         navigation.setOptions({
             headerRight: () => (
-                <View style={{ flexDirection: "row", marginRight: 5}}>
+                <View style={{ flexDirection: "row", marginRight: 5 }}>
                     <Icon name="search" color='#fff' size={30} onPress={() => navigation.navigate('Search')} />
-                    <View style={{marginLeft:20}}/>
+                    <View style={{ marginLeft: 20 }} />
                     <Icon name="person" color='#fff' size={30} onPress={() => navigation.navigate('Profile')} />
                 </View>
             ),
@@ -32,20 +32,28 @@ function Home({ navigation }) {
     }, [navigation]);
 
     return (
-        <ScrollView
-            refreshControl={
-                <RefreshControl
-                refreshing={refreshing}
-                onRefresh={onRefresh}
-                />
-            }
-        >
-            {!global.Token ?
-                <Feed/>
-            :
-                <SubFeed/>
-            }
-        </ScrollView>
+        <View>
+            <ScrollView
+                style={{ zIndex: 0 }}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={onRefresh}
+                    />
+                }
+            >
+                {!global.Token ?
+                    <View>
+                        <Feed />
+                    </View>
+                    :
+                    <View>
+                        <SubFeed />
+                    </View>
+                }
+            </ScrollView>
+            <Filter style={{ zIndex: 3 }}/>
+        </View>
     )
 }
 
