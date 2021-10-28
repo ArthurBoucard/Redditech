@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import { Icon, FAB, Button, Tab } from 'react-native-elements';
 import './Connection';
-import Filter from "../components/Filter"
 import axios from 'axios';
 
 function Profile({ navigation }) {
