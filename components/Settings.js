@@ -1,8 +1,5 @@
 import React from 'react'
 import { View, Text, StyleSheet, StatusBar } from 'react-native'
-
-import Filter from "../components/Filter"
-
 export default class Settings extends React.Component {
 
     render() {
