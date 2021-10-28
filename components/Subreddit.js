@@ -4,12 +4,29 @@ import {
     Text,
     View,
     Image,
-    ActivityIndicator
+    ActivityIndicator,
+    ScrollView,
+    RefreshControl,
+    Refres
 } from 'react-native';
 import { Icon, FAB, Button, Tab } from 'react-native-elements';
 import axios from 'axios';
 
+import Feed from "../components/Feed"
+import Filter from './Filter'
+
+const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+}
+
 function Subreddit({ navigation }) {
+
+    const [refreshing, setRefreshing] = React.useState(false);
+
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        wait(2000).then(() => setRefreshing(false));
+    }, []);
 
     const [User, setUser] = useState(
         { all: null }
@@ -57,30 +74,33 @@ function Subreddit({ navigation }) {
                             <ActivityIndicator style={{ height: "100%" }} size="large" color="#ffa31a" />
                         </View>
                         :
-                        <View style={{ height: "100%", backgroundColor: "white" }}>
+                        <View style={{ height: "31%", backgroundColor: "white" }}>
                             <View style={styles.header}>
                                 <Image style={styles.banner} source={{ uri: (User.all.subreddit.banner_img).split("?")[0] }} />
                             </View>
                             <Image style={styles.avatar} source={{ uri: (User.all.icon_img).split("?")[0] }} />
                             <View style={styles.body}>
                                 <View>
-                                    <Text style={styles.name}>{User.all.name}</Text>
-                                    <Text style={styles.description}>{User.all.subreddit.display_name_prefixed} ○ {User.all.created} ○ {User.all.total_karma} karma</Text>
-                                    <Text style={styles.description}>{User.all.subreddit.public_description}</Text>
-                                    <Text style={styles.followers}>{User.all.subreddit.subscribers} followers</Text>
+                                    <Text style={styles.name}>Name</Text>
+                                    <Text style={styles.detail}>Nb abonné ○ Nb abonné online</Text>
+                                    <Text style={styles.description}>Description</Text>
                                 </View>
                             </View>
-
-                            <FAB title="Settings" color='#ffa31a' placement='right' icon={
-                                <Icon
-                                    name="settings"
-                                    size={20}
-                                    color="white"
-                                />}
-                                onPress={() => navigation.navigate('Settings')}
-                            />
                         </View>
                     }
+                    <ScrollView
+                        style={{ zIndex: 0 }}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={refreshing}
+                                onRefresh={onRefresh}
+                            />
+                        }
+                    >
+                        <View>
+                            <Feed />
+                        </View>
+                    </ScrollView>
                 </View>
             }
         </View>
@@ -99,7 +119,6 @@ const styles = StyleSheet.create({
         borderWidth: 4,
         borderColor: "white",
         marginBottom: 10,
-        alignSelf: 'center',
         position: 'absolute',
         marginTop: 130
     },
@@ -109,27 +128,26 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     body: {
-        marginTop: 70
+        marginLeft: 15,
+        marginTop: 60
     },
     name: {
         fontSize: 28,
         color: "black",
         fontWeight: "600",
-        marginTop: 10,
-        textAlign: 'center'
+        textAlign: 'left'
     },
-    description: {
+    detail: {
         fontSize: 16,
         color: "#696969",
-        marginTop: 10,
-        textAlign: 'center'
+        marginTop: 1,
+        textAlign: 'left'
     },
-    followers: {
-        fontSize: 20,
-        fontWeight: 'bold',
+    description: {
+        fontSize: 18,
         color: "black",
-        marginTop: 30,
-        textAlign: 'center'
+        marginTop: 15,
+        textAlign: 'left'
     }
 });
 

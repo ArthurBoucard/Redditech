@@ -39,7 +39,12 @@ function App() {
         <Stack.Screen name="Search" component={Search} />
         <Stack.Screen name="Settings" component={Settings} />
         <Stack.Screen name="Connection" component={Connection} />
-        <Stack.Screen name="Subreddit" component={Subreddit} />
+        <Stack.Screen name="Subreddit" component={Subreddit} options={{
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          }, headerStyle: { backgroundColor: '#ffa31a' }
+        }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
