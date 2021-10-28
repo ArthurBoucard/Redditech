@@ -1,14 +1,17 @@
 import React, { useCallback, useState, useEffect } from 'react'
-import { View, Text, StyleSheet, Image, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, Image, Pressable } from 'react-native'
 import { Icon, Button, ListItem, Card, FAB } from 'react-native-elements';
 import axios from 'axios';
+import { useNavigation } from '@react-navigation/native';
 
 function SubFeed() {
 
+    const { navigate } = useNavigation();
+
     const [SubReddit, setSubReddit] = useState(
-        { all : null }
+        { all: null }
     )
-    
+
     const options = {
         method: 'GET',
         url: 'https://www.reddit.com/r/all/' + 'hot' + '.json?limit=50',
@@ -18,7 +21,7 @@ function SubFeed() {
         axios.request(options).then(function (res) {
             setSubReddit(
                 {
-                    all : res.data
+                    all: res.data
                 }
             )
         }).catch(function (error) {
@@ -31,37 +34,39 @@ function SubFeed() {
     return (
         <View>
             {!SubReddit.all ?
-                <View></View>
+                <View style={{ zIndex: 0 }}></View>
             :
                 (SubReddit.all.data.children).map((item, index) => {
                     return (
-                        <Card>
-                            <View key={index} style={{
-                                position: "relative"
-                            }}>
-                                <Pressable onPress={() => navigate('Subreddit')}>
-                                    <View style={{ flexDirection: 'row' }}>
-                                        <View>
-                                            <Icon name="person" color='black' size={30} style={{margin: 5}} />
-                                        </View>
-                                        <View style={{ flexDirection: 'column' }}>
-                                            <Text style={styles.title}>{!SubReddit.all ? "Loading" : item.data.subreddit_name_prefixed}</Text>
-                                            <Text style={styles.second}>{!SubReddit.all ? "Loading" : item.data.author} ○ {!SubReddit.all ? "Loading" : item.data.created}</Text>
-                                        </View>
-                                    </View>
-                                </Pressable>
-                                <View style={{
-                                    alignItems: "center"
+                        <View style={{ zIndex: 0 }}>
+                            <Card>
+                                <View key={index} style={{
+                                    position: "relative"
                                 }}>
-                                    <Text style={styles.third}>{!SubReddit.all ? "Loading" : item.data.title}</Text>
-                                    <Image
-                                        style={{ width: item.data.thumbnail_width * 2, height: item.data.thumbnail_height * 2, marginVertical: 10, }}
-                                        resizeMode="cover"
-                                        source={{ uri: item.data.thumbnail }}
-                                    />
+                                    <Pressable onPress={() => navigate('Subreddit')}>
+                                        <View style={{ flexDirection: 'row' }}>
+                                            <View>
+                                                <Icon name="person" color='black' size={30} style={{ margin: 5 }} />
+                                            </View>
+                                            <View style={{ flexDirection: 'column' }}>
+                                                <Text style={styles.title}>{!SubReddit.all ? "Loading" : item.data.subreddit_name_prefixed}</Text>
+                                                <Text style={styles.second}>{!SubReddit.all ? "Loading" : item.data.author} ○ {!SubReddit.all ? "Loading" : item.data.created}</Text>
+                                            </View>
+                                        </View>
+                                    </Pressable>
+                                    <View style={{
+                                        alignItems: "center"
+                                    }}>
+                                        <Text style={styles.third}>{!SubReddit.all ? "Loading" : item.data.title}</Text>
+                                        <Image
+                                            style={{ width: item.data.thumbnail_width * 2, height: item.data.thumbnail_height * 2, marginVertical: 10, }}
+                                            resizeMode="cover"
+                                            source={{ uri: item.data.thumbnail }}
+                                        />
+                                    </View>
                                 </View>
-                            </View>
-                        </Card>
+                            </Card>
+                        </View>
                     );
                 })
             }
@@ -70,8 +75,19 @@ function SubFeed() {
 }
 
 const styles = StyleSheet.create({
-    text: {
+    title: {
         color: 'black',
+        fontWeight: 'bold',
+        fontSize: 15
+    },
+    second: {
+        color: 'black',
+        alignItems: 'center',
+    },
+    third: {
+        color: 'black',
+        alignItems: 'center',
+        marginTop: 10
     },
 });
 

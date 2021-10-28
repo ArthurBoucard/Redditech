@@ -4,8 +4,6 @@ import { Icon, Button, ListItem, Card, FAB } from 'react-native-elements';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 
-import Filter from "../components/Filter"
-
 function Feed() {
 
     const { navigate } = useNavigation();
@@ -37,7 +35,7 @@ function Feed() {
         <View>
             {!SubReddit.all ?
                 <View style={{ zIndex: 0 }}></View>
-                :
+            :
                 (SubReddit.all.data.children).map((item, index) => {
                     return (
                         <View style={{ zIndex: 0 }}>
@@ -45,30 +43,30 @@ function Feed() {
                                 <View key={index} style={{
                                     position: "relative"
                                 }}>
-                                  <Pressable onPress={() => navigate('Subreddit')}>
-                                      <View style={{ flexDirection: 'row' }}>
-                                          <View>
-                                              <Icon name="person" color='black' size={30} style={{ margin: 5 }} />
-                                          </View>
-                                          <View style={{ flexDirection: 'column' }}>
-                                              <Text style={styles.title}>{!SubReddit.all ? "Loading" : item.data.subreddit_name_prefixed}</Text>
-                                              <Text style={styles.second}>{!SubReddit.all ? "Loading" : item.data.author} ○ {!SubReddit.all ? "Loading" : item.data.created}</Text>
-                                          </View>
-
-                                      </View>
-                                </Pressable>
-                                <View style={{
-                                    alignItems: "center"
-                                }}>
-                                    <Text style={styles.third}>{!SubReddit.all ? "Loading" : item.data.title}</Text>
-                                    <Image
-                                        style={{ width: item.data.thumbnail_width * 2, height: item.data.thumbnail_height * 2, marginVertical: 10, }}
-                                        resizeMode="cover"
-                                        source={{ uri: item.data.thumbnail }}
-                                    />
+                                    <Pressable onPress={() => navigate('Subreddit')}>
+                                        <View style={{ flexDirection: 'row' }}>
+                                            <View>
+                                                <Icon name="person" color='black' size={30} style={{ margin: 5 }} />
+                                            </View>
+                                            <View style={{ flexDirection: 'column' }}>
+                                                <Text style={styles.title}>{!SubReddit.all ? "Loading" : item.data.subreddit_name_prefixed}</Text>
+                                                <Text style={styles.second}>{!SubReddit.all ? "Loading" : item.data.author} ○ {!SubReddit.all ? "Loading" : item.data.created}</Text>
+                                            </View>
+                                        </View>
+                                    </Pressable>
+                                    <View style={{
+                                        alignItems: "center"
+                                    }}>
+                                        <Text style={styles.third}>{!SubReddit.all ? "Loading" : item.data.title}</Text>
+                                        <Image
+                                            style={{ width: item.data.thumbnail_width * 2, height: item.data.thumbnail_height * 2, marginVertical: 10, }}
+                                            resizeMode="cover"
+                                            source={{ uri: item.data.thumbnail }}
+                                        />
+                                    </View>
                                 </View>
-                            </View>
-                        </Card>
+                            </Card>
+                        </View>
                     );
                 })
             }
