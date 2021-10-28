@@ -7,6 +7,7 @@ import Search from './components/Search'
 import Profile from './components/Profile'
 import Settings from './components/Settings'
 import Connection from './components/Connection'
+import Subreddit from './components/Subreddit'
 
 const Stack = createNativeStackNavigator();
 
@@ -38,6 +39,7 @@ function App() {
         <Stack.Screen name="Search" component={Search} />
         <Stack.Screen name="Settings" component={Settings} />
         <Stack.Screen name="Connection" component={Connection} />
+        <Stack.Screen name="Subreddit" component={Subreddit} />
       </Stack.Navigator>
     </NavigationContainer>
   );

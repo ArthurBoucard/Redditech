@@ -37,18 +37,29 @@ function SubFeed() {
                     return (
                         <Card>
                             <View key={index} style={{
-                                position: "relative",
-                                alignItems: "center"
+                                position: "relative"
                             }}>
-                                <Image
-                                    style={{ width: "100%", height: item.data.thumbnail_height }}
-                                    resizeMode="cover"
-                                    source={{ uri: item.data.thumbnail }}
-                                />
-                                <Text style={styles.text}>{!SubReddit.all ? "Loading" : item.data.subreddit_name_prefixed}</Text>
-                                <Text style={styles.text}>{!SubReddit.all ? "Loading" : item.data.title}</Text>
-                                <Text style={styles.text}>{!SubReddit.all ? "Loading" : item.data.author}</Text>
-                                <Text style={styles.text}>{!SubReddit.all ? "Loading" : item.data.created}</Text>
+                                <Pressable onPress={() => navigate('Subreddit')}>
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <View>
+                                            <Icon name="person" color='black' size={30} style={{margin: 5}} />
+                                        </View>
+                                        <View style={{ flexDirection: 'column' }}>
+                                            <Text style={styles.title}>{!SubReddit.all ? "Loading" : item.data.subreddit_name_prefixed}</Text>
+                                            <Text style={styles.second}>{!SubReddit.all ? "Loading" : item.data.author} ○ {!SubReddit.all ? "Loading" : item.data.created}</Text>
+                                        </View>
+                                    </View>
+                                </Pressable>
+                                <View style={{
+                                    alignItems: "center"
+                                }}>
+                                    <Text style={styles.third}>{!SubReddit.all ? "Loading" : item.data.title}</Text>
+                                    <Image
+                                        style={{ width: item.data.thumbnail_width * 2, height: item.data.thumbnail_height * 2, marginVertical: 10, }}
+                                        resizeMode="cover"
+                                        source={{ uri: item.data.thumbnail }}
+                                    />
+                                </View>
                             </View>
                         </Card>
                     );

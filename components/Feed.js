@@ -1,9 +1,12 @@
 import React, { useCallback, useState, useEffect } from 'react'
-import { View, Text, StyleSheet, Image, ScrollView } from 'react-native'
-import { Icon, Button, ListItem, Card } from 'react-native-elements';
+import { View, Text, StyleSheet, Image, ScrollView, Pressable, Button } from 'react-native'
+import { Icon, ListItem, Card } from 'react-native-elements';
 import axios from 'axios';
+import { useNavigation } from '@react-navigation/native';
 
 function Feed() {
+
+    const { navigate } = useNavigation();
 
     const [SubReddit, setSubReddit] = useState(
         { all: null }
@@ -39,15 +42,17 @@ function Feed() {
                             <View key={index} style={{
                                 position: "relative"
                             }}>
-                                <View style={{ flexDirection: 'row' }}>
-                                    <View>
-                                        <Icon name="person" color='black' size={30} style={{margin: 5}} />
+                                <Pressable onPress={() => navigate('Subreddit')}>
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <View>
+                                            <Icon name="person" color='black' size={30} style={{margin: 5}} />
+                                        </View>
+                                        <View style={{ flexDirection: 'column' }}>
+                                            <Text style={styles.title}>{!SubReddit.all ? "Loading" : item.data.subreddit_name_prefixed}</Text>
+                                            <Text style={styles.second}>{!SubReddit.all ? "Loading" : item.data.author} ○ {!SubReddit.all ? "Loading" : item.data.created}</Text>
+                                        </View>
                                     </View>
-                                    <View style={{ flexDirection: 'column' }}>
-                                        <Text style={styles.title}>{!SubReddit.all ? "Loading" : item.data.subreddit_name_prefixed}</Text>
-                                        <Text style={styles.second}>{!SubReddit.all ? "Loading" : item.data.author} ○ {!SubReddit.all ? "Loading" : item.data.created}</Text>
-                                    </View>
-                                </View>
+                                </Pressable>
                                 <View style={{
                                     alignItems: "center"
                                 }}>

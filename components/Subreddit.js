@@ -7,9 +7,10 @@ import {
     ActivityIndicator
 } from 'react-native';
 import { Icon, FAB, Button, Tab } from 'react-native-elements';
+import './Connection';
 import axios from 'axios';
 
-function Profile({ navigation }) {
+function Subreddit({ navigation }) {
 
     const [User, setUser] = useState(
         { all: null }
@@ -41,7 +42,7 @@ function Profile({ navigation }) {
         <View>
             {!global.Token ?
                 <View style={{ height: "100%" }}>
-                    <FAB title="connection" icon={{
+                    <FAB title="subreddit" icon={{
                         name: "login",
                         size: 15,
                         color: "white"
@@ -133,4 +134,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Profile;
+export default Subreddit;
