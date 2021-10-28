@@ -7,7 +7,6 @@ import {
     ActivityIndicator
 } from 'react-native';
 import { Icon, FAB, Button, Tab } from 'react-native-elements';
-import './Connection';
 import axios from 'axios';
 
 function Subreddit({ navigation }) {
