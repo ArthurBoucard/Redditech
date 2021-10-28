@@ -70,7 +70,6 @@ function Profile({ navigation }) {
                                     <Text style={styles.followers}>{User.all.subreddit.subscribers} followers</Text>
                                 </View>
                             </View>
-
                             <FAB title="Settings" color='#ffa31a' placement='right' icon={
                                 <Icon
                                     name="settings"

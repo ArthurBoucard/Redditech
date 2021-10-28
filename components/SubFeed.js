@@ -1,6 +1,6 @@
 import React, { useCallback, useState, useEffect } from 'react'
 import { View, Text, StyleSheet, Image, ScrollView } from 'react-native'
-import { Icon, Button, ListItem, Card } from 'react-native-elements';
+import { Icon, Button, ListItem, Card, FAB } from 'react-native-elements';
 import axios from 'axios';
 
 function SubFeed() {
