@@ -38,7 +38,7 @@ const GetSubRedditIcon = ( props ) => {
     )
 }
 
-function SubFeed() {
+function SubFeed( props ) {
 
     const { navigate } = useNavigation();
 
@@ -48,7 +48,7 @@ function SubFeed() {
 
     const options = {
         method: 'GET',
-        url: 'https://www.reddit.com/r/all/' + 'hot' + '.json',
+        url: 'https://www.reddit.com/r/' + props.subreddit + '.json',
     };
 
     useEffect(() => {

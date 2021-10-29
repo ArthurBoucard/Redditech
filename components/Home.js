@@ -44,11 +44,11 @@ function Home({ navigation }) {
             >
                 {!global.Token ?
                     <View>
-                        <Feed />
+                        <Feed subreddit='all/top' />
                     </View>
                     :
                     <View>
-                        <SubFeed />
+                        <SubFeed subreddit='all/hot' />
                     </View>
                 }
             </ScrollView>

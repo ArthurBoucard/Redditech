@@ -82,7 +82,7 @@ function Subreddit() {
                     }
                 >
                     <View>
-                        <Feed />
+                        <Feed subreddit={global.SubRedditName} />
                     </View>
                 </ScrollView>
             </View>
