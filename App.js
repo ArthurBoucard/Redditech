@@ -14,6 +14,7 @@ const Stack = createNativeStackNavigator();
 function App() {
 
   global.Token = null
+  global.SubRedditName = null
 
   return (
     <NavigationContainer>

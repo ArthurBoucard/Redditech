@@ -14,7 +14,7 @@ function SubFeed() {
 
     const options = {
         method: 'GET',
-        url: 'https://www.reddit.com/r/all/' + 'hot' + '.json?limit=50',
+        url: 'https://www.reddit.com/r/all/' + 'hot' + '.json',
     };
 
     useEffect(() => {
@@ -43,7 +43,7 @@ function SubFeed() {
                                 <View key={index} style={{
                                     position: "relative"
                                 }}>
-                                    <Pressable onPress={() => navigate('Subreddit')}>
+                                    <Pressable onPress={() => {navigate('Subreddit'); global.SubRedditName = item.data.subreddit}}>
                                         <View style={{ flexDirection: 'row' }}>
                                             <View>
                                                 <Icon name="person" color='black' size={30} style={{ margin: 5 }} />

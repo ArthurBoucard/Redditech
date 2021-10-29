@@ -19,7 +19,7 @@ const wait = (timeout) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
 }
 
-function Subreddit({ navigation }) {
+function Subreddit() {
 
     const [refreshing, setRefreshing] = React.useState(false);
 
@@ -28,22 +28,18 @@ function Subreddit({ navigation }) {
         wait(2000).then(() => setRefreshing(false));
     }, []);
 
-    const [User, setUser] = useState(
+    const [SubReddit, setSubReddit] = useState(
         { all: null }
     )
 
     const options = {
         method: 'GET',
-        url: 'https://oauth.reddit.com/api/v1/me',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            Authorization: "Bearer " + global.Token,
-        },
+        url: 'https://www.reddit.com/r/'+ global.SubRedditName + '/about.json',
     };
 
     useEffect(() => {
         axios.request(options).then(function (res) {
-            setUser(
+            setSubReddit(
                 {
                     all: res.data
                 }
@@ -51,58 +47,45 @@ function Subreddit({ navigation }) {
         }).catch(function (error) {
             console.error(error);
         });
-        console.log(User.all);
+        // console.log(SubReddit.all);
     }, []);
 
     return (
         <View>
-            {!global.Token ?
-                <View style={{ height: "100%" }}>
-                    <FAB title="subreddit" icon={{
-                        name: "login",
-                        size: 15,
-                        color: "white"
-                    }}
-                        style={{ height: "100%" }}
-                        color="#ffa31a"
-                        onPress={() => navigation.navigate('Connection')} />
-                </View>
-                :
-                <View>
-                    {!User.all ?
-                        <View style={{ height: "100%" }}>
-                            <ActivityIndicator style={{ height: "100%" }} size="large" color="#ffa31a" />
+            <View>
+                {!SubReddit.all ?
+                    <View style={{ height: "100%" }}>
+                        <ActivityIndicator style={{ height: "100%" }} size="large" color="#ffa31a" />
+                    </View>
+                    :
+                    <View style={{ height: "31%", backgroundColor: "white" }}>
+                        <View style={styles.header}>
+                            <Image style={styles.banner} source={{ uri: SubReddit.all.data.header_img }} />
                         </View>
-                        :
-                        <View style={{ height: "31%", backgroundColor: "white" }}>
-                            <View style={styles.header}>
-                                <Image style={styles.banner} source={{ uri: (User.all.subreddit.banner_img).split("?")[0] }} />
-                            </View>
-                            <Image style={styles.avatar} source={{ uri: (User.all.icon_img).split("?")[0] }} />
-                            <View style={styles.body}>
-                                <View>
-                                    <Text style={styles.name}>Name</Text>
-                                    <Text style={styles.detail}>Nb abonné ○ Nb abonné online</Text>
-                                    <Text style={styles.description}>Description</Text>
-                                </View>
+                        <Image style={styles.avatar} source={{ uri: SubReddit.all.data.icon_img }} />
+                        <View style={styles.body}>
+                            <View>
+                                <Text style={styles.name}>{SubReddit.all.data.display_name_prefixed}</Text>
+                                <Text style={styles.detail}>{SubReddit.all.data.subscribers} subscribers ○ {SubReddit.all.data.active_user_count} online</Text>
+                                <Text style={styles.description}>{SubReddit.all.data.public_description}</Text>
                             </View>
                         </View>
+                    </View>
+                }
+                <ScrollView
+                    style={{ zIndex: 0 }}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={refreshing}
+                            onRefresh={onRefresh}
+                        />
                     }
-                    <ScrollView
-                        style={{ zIndex: 0 }}
-                        refreshControl={
-                            <RefreshControl
-                                refreshing={refreshing}
-                                onRefresh={onRefresh}
-                            />
-                        }
-                    >
-                        <View>
-                            <Feed />
-                        </View>
-                    </ScrollView>
-                </View>
-            }
+                >
+                    <View>
+                        <Feed />
+                    </View>
+                </ScrollView>
+            </View>
         </View>
     )
 }
@@ -147,6 +130,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: "black",
         marginTop: 15,
+        marginRight: 5,
         textAlign: 'left'
     }
 });
