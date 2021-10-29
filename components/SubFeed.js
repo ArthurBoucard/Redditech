@@ -4,6 +4,40 @@ import { Icon, Button, ListItem, Card, FAB } from 'react-native-elements';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 
+const GetSubRedditIcon = ( props ) => {
+
+    const [SubReddit, setSubReddit] = useState(
+        { all: null }
+    )
+
+    const options = {
+        method: 'GET',
+        url: 'https://www.reddit.com/r/'+ props.subreddit + '/about.json',
+    };
+
+    useEffect(() => {
+        axios.request(options).then(function (res) {
+            setSubReddit(
+                {
+                    all: res.data
+                }
+            )
+        }).catch(function (error) {
+            console.error(error);
+        });
+        // console.log(SubReddit.all);
+    }, []);
+    return (
+        <View>
+            {!SubReddit.all ?
+                <></>
+            :
+                <Image style={styles.avatar} source={{ uri: SubReddit.all.data.icon_img }} />
+            }
+        </View>
+    )
+}
+
 function SubFeed() {
 
     const { navigate } = useNavigation();
@@ -46,7 +80,7 @@ function SubFeed() {
                                     <Pressable onPress={() => {navigate('Subreddit'); global.SubRedditName = item.data.subreddit}}>
                                         <View style={{ flexDirection: 'row' }}>
                                             <View>
-                                                <Icon name="person" color='black' size={30} style={{ margin: 5 }} />
+                                                <GetSubRedditIcon subreddit={item.data.subreddit} />
                                             </View>
                                             <View style={{ flexDirection: 'column' }}>
                                                 <Text style={styles.title}>{!SubReddit.all ? "Loading" : item.data.subreddit_name_prefixed}</Text>
@@ -88,6 +122,14 @@ const styles = StyleSheet.create({
         color: 'black',
         alignItems: 'center',
         marginTop: 10
+    },
+    avatar: {
+        width: 30,
+        height: 30,
+        borderRadius: 63,
+        borderWidth: 1,
+        borderColor: "black",
+        margin: 5,
     },
 });
 
