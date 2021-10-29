@@ -24,7 +24,7 @@ function Profile({ navigation }) {
         },
     };
 
-    useEffect(() => {
+    // useEffect(() => {
         axios.request(options).then(function (res) {
             setUser(
                 {
@@ -34,8 +34,8 @@ function Profile({ navigation }) {
         }).catch(function (error) {
             console.error(error);
         });
-        console.log(User.all);
-    }, []);
+        // console.log(User.all);
+    // }, []);
 
     return (
         <View>

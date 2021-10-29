@@ -34,20 +34,21 @@ function Connection({ navigation }) {
                         refreshToken : authState.refreshToken
                     }
                 )
+                global.Token = authState.accessToken
+                console.log(global.Token)
+                navigation.navigate('Profile', {screen: 'Home'})
             } catch(e) {
                 console.log(e)
             }
         }
     )
-    // useEffect(() => {
+    useEffect(() => {
         Auth();
-        console.log(apiData.token)
-        global.Token = apiData.token
-    // }, []);
+    }, []);
 
-    if (!global.Token) {
-        console.log("Token is null")
-    } else {
+    {!global.Token ? 
+        console.log("Token is " + global.Token)
+    :
         navigation.navigate('Profile')
     }
 
