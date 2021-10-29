@@ -83,10 +83,6 @@ const actions = [
 
 function Filter() {
 
-    console.log('FILTER==========================================================================================================')
-    console.log(global.Filter)
-    console.log(global.FilterIcon)
-
     return (
         <View style={{ width: "105%", height:"1%" }}>
             <FloatingAction

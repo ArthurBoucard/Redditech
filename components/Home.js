@@ -32,10 +32,6 @@ function Home({ navigation }) {
             ),
         });
     }, [navigation]);
-
-    console.log('HOME==========================================================================================================')
-    console.log(global.Filter)
-    console.log(global.FilterIcon)
     
     return (
         <View>
