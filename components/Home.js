@@ -12,12 +12,14 @@ const wait = (timeout) => {
 
 function Home({ navigation }) {
 
+    var filter = 'all/' + global.Filter
+
     const [refreshing, setRefreshing] = React.useState(false);
 
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
         wait(2000).then(() => setRefreshing(false));
-    }, []);
+    }, [refreshing]);
 
     React.useLayoutEffect(() => {
         navigation.setOptions({
@@ -31,28 +33,36 @@ function Home({ navigation }) {
         });
     }, [navigation]);
 
+    console.log('HOME==========================================================================================================')
+    console.log(global.Filter)
+    console.log(global.FilterIcon)
+    
     return (
         <View>
-            <ScrollView
-                style={{ zIndex: 0 }}
-                refreshControl={
-                    <RefreshControl
-                        refreshing={refreshing}
-                        onRefresh={onRefresh}
-                    />
-                }
-            >
-                {!global.Token ?
-                    <View>
-                        <Feed subreddit='all/top' />
-                    </View>
-                    :
-                    <View>
-                        <SubFeed subreddit='all/hot' />
-                    </View>
-                }
-            </ScrollView>
-            <Filter style={{ zIndex: 3 }}/>
+            {refreshing ? <></> :
+                <View>
+                    <ScrollView
+                        style={{ zIndex: 0 }}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={refreshing}
+                                onRefresh={onRefresh}
+                            />
+                        }
+                    >
+                        {!global.Token ?
+                            <View>
+                                <Feed subreddit={filter} />
+                            </View>
+                        :
+                            <View>
+                                <SubFeed subreddit={filter} />
+                            </View>
+                        }
+                    </ScrollView>
+                    <Filter style={{ zIndex: 3 }}/>
+                </View>
+            }
         </View>
     )
 }

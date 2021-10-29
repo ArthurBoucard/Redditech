@@ -1,5 +1,5 @@
 import React from 'react';
-import { StatusBar } from 'react-native';
+import { StatusBar, LogBox } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './components/Home'
@@ -13,7 +13,12 @@ const Stack = createNativeStackNavigator();
 
 function App() {
 
+  LogBox.ignoreLogs(['Warning: ...']);
+  LogBox.ignoreAllLogs();
+
   global.Token = null
+  global.Filter = 'top'
+  global.FilterIcon = 'grade'
   global.SubRedditName = null
 
   return (
