@@ -4,7 +4,7 @@ import { Icon, Button, ListItem, Card, FAB } from 'react-native-elements';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 
-const GetSubRedditIcon = ( props ) => {
+const GetSubReddit = ( props ) => {
 
     const [SubReddit, setSubReddit] = useState(
         { all: null }
@@ -49,21 +49,25 @@ function SubFeed( props ) {
     const options = {
         method: 'GET',
         url: 'https://www.reddit.com/r/' + props.subreddit + '.json',
+        // url: 'https://oauth.reddit.com/subreddits/mine/subscriber',
+        // headers: {
+        //     'Content-Type': 'application/x-www-form-urlencoded',
+        //     Authorization: "Bearer " + global.Token,
+        // },
     };
 
     useEffect(() => {
-        axios.request(options).then(function (res) {
+        axios.request(options).then((res) => {
             setSubReddit(
                 {
                     all: res.data
                 }
             )
-        }).catch(function (error) {
+        }).catch((error) => {
             console.error(error);
         });
         // console.log(SubReddit.all);
     }, []);
-    // console.log(SubReddit.all.data.children[0])
 
     return (
         <View>
@@ -80,7 +84,7 @@ function SubFeed( props ) {
                                     <Pressable onPress={() => {navigate('Subreddit'); global.SubRedditName = item.data.subreddit}}>
                                         <View style={{ flexDirection: 'row' }}>
                                             <View>
-                                                <GetSubRedditIcon subreddit={item.data.subreddit} />
+                                                <GetSubReddit subreddit={item.data.subreddit} />
                                             </View>
                                             <View style={{ flexDirection: 'column' }}>
                                                 <Text style={styles.title}>{!SubReddit.all ? "Loading" : item.data.subreddit_name_prefixed}</Text>
