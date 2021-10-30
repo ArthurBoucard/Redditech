@@ -97,6 +97,11 @@ function Feed( props ) {
                                             resizeMode="cover"
                                             source={{ uri: item.data.thumbnail }}
                                         />
+                                        <View style={{ flexDirection: 'row' }}>
+                                            <Icon name="arrow-circle-up" color='#000000' size={20} />
+                                            <Text style={styles.fourth}>{!SubReddit.all ? "Loading" : item.data.score}</Text>
+                                            <Icon name="arrow-circle-down" color='#000000' size={20} />
+                                        </View>
                                     </View>
                                 </View>
                             </Card>
@@ -122,6 +127,11 @@ const styles = StyleSheet.create({
         color: 'black',
         alignItems: 'center',
         marginTop: 10
+    },
+    fourth: {
+        color: 'black',
+        marginLeft: 5,
+        marginRight: 5
     },
     avatar: {
         width: 30,
