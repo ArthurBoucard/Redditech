@@ -5,8 +5,8 @@ import { Card, Icon } from 'react-native-elements';
 function Settings() {
 
     const [isEnabled1, setIsEnabled1] = useState(false);
-    const [isEnabled2, setIsEnabled2] = useState(false);
-    const [isEnabled3, setIsEnabled3] = useState(false);
+    const [isEnabled2, setIsEnabled2] = useState(true);
+    const [isEnabled3, setIsEnabled3] = useState(true);
     const [isEnabled4, setIsEnabled4] = useState(false);
     const [isEnabled5, setIsEnabled5] = useState(false);
     const [isEnabled6, setIsEnabled6] = useState(false);
