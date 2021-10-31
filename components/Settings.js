@@ -21,10 +21,10 @@ function Settings() {
         <View style={style.view}>
             <StatusBar
                 backgroundColor="white" barStyle="dark-content" />
-            <Text style={{ fontWeight: 'bold', fontSize:15, marginBottom:10 }}>     VIEW OPTIONS </Text>
+            <Text style={{ fontWeight: 'bold', fontSize:15, marginBottom:10, color:'#ffa31a' }}>     VIEW OPTIONS </Text>
             <View style={style.card}>
                 <View style={style.params}>
-                    <Text >Reduce animation</Text>
+                    <Text style={{ color:'black' }} >Reduce animation</Text>
                     <Switch
                         trackColor={{ false: "#767577", true: "#ffa31a" }}
                         thumbColor={isEnabled1 ? "#ffa31a" : "#f4f3f4"}
@@ -34,7 +34,7 @@ function Settings() {
                     />
                 </View>
                 <View style={style.params}>
-                    <Text  style={{marginTop:5}}>Auto Play</Text>
+                    <Text  style={{marginTop:5, color:'black'}}>Auto Play</Text>
                     <Switch
                         trackColor={{ false: "#767577", true: "#ffa31a" }}
                         thumbColor={isEnabled2 ? "#ffa31a" : "#f4f3f4"}
@@ -44,7 +44,7 @@ function Settings() {
                     />
                 </View>
                 <View style={style.params}>
-                    <Text  style={{marginTop:5}}>Show NSFW cotent (I'm over 18)</Text>
+                    <Text  style={{marginTop:5, color:'black'}}>Show NSFW cotent (I'm over 18)</Text>
                     <Switch
                         trackColor={{ false: "#767577", true: "#ffa31a" }}
                         thumbColor={isEnabled3 ? "#ffa31a" : "#f4f3f4"}
@@ -54,10 +54,10 @@ function Settings() {
                     />
                 </View>
             </View>
-            <Text style={{ fontWeight: 'bold', fontSize:15, marginBottom:10, marginTop:10 }}>     ADVENCED </Text>
+            <Text style={{ fontWeight: 'bold', fontSize:15, marginBottom:10, marginTop:10, color:'#ffa31a' }}>     ADVENCED </Text>
             <View style={style.card}>
                 <View style={style.params}>
-                    <Text  style={{marginTop:5}}>Saved image attribution</Text>
+                    <Text  style={{marginTop:5, color:'black'}}>Saved image attribution</Text>
                     <Switch
                         trackColor={{ false: "#767577", true: "#ffa31a" }}
                         thumbColor={isEnabled4 ? "#ffa31a" : "#f4f3f4"}
@@ -67,7 +67,7 @@ function Settings() {
                     />
                 </View>
                 <View style={style.params}>
-                    <Text  style={{marginTop:5}}>Open web</Text>
+                    <Text  style={{marginTop:5, color:'black'}}>Open web</Text>
                     <Switch
                         trackColor={{ false: "#767577", true: "#ffa31a" }}
                         thumbColor={isEnabled5 ? "#ffa31a" : "#f4f3f4"}
@@ -77,10 +77,10 @@ function Settings() {
                     />
                 </View>
             </View>
-            <Text style={{ fontWeight: 'bold', fontSize:15, marginBottom:10, marginTop:10 }}>     ABOUT </Text>
+            <Text style={{ fontWeight: 'bold', fontSize:15, marginBottom:10, marginTop:10, color:'#ffa31a' }}>     ABOUT </Text>
             <View style={style.card}>
                 <View style={style.params}>
-                    <Text style={{marginTop:5}}>2021.42.0.378193</Text>
+                    <Text style={{marginTop:5, color:'black'}}>2021.42.0.378193</Text>
                     <Icon style={{marginRight:10}} name="east" color='grey' size={30} onPress={() => console.log("onPress")}/>
                 </View>
             </View>
