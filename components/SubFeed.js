@@ -1,10 +1,10 @@
 import React, { useCallback, useState, useEffect } from 'react'
-import { View, Text, StyleSheet, Image, Pressable } from 'react-native'
+import { View, Text, StyleSheet, Image, ScrollView, Pressable } from 'react-native'
 import { Icon, Button, ListItem, Card, FAB } from 'react-native-elements';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 
-const GetSubReddit = ( props ) => {
+const GetSubRedditIcon = ( props ) => {
 
     const [SubReddit, setSubReddit] = useState(
         { all: null }
@@ -38,7 +38,7 @@ const GetSubReddit = ( props ) => {
     )
 }
 
-function SubFeed( props ) {
+function Feed( props ) {
 
     const { navigate } = useNavigation();
 
@@ -48,26 +48,26 @@ function SubFeed( props ) {
 
     const options = {
         method: 'GET',
-        url: 'https://www.reddit.com/r/' + props.subreddit + '.json',
-        // url: 'https://oauth.reddit.com/subreddits/mine/subscriber',
-        // headers: {
-        //     'Content-Type': 'application/x-www-form-urlencoded',
-        //     Authorization: "Bearer " + global.Token,
-        // },
+        url: 'https://oauth.reddit.com/' + 'top' + '.json',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Authorization: "Bearer " + global.Token,
+        },
     };
 
     useEffect(() => {
-        axios.request(options).then((res) => {
+        axios.request(options).then(function (res) {
             setSubReddit(
                 {
                     all: res.data
                 }
             )
-        }).catch((error) => {
+        }).catch(function (error) {
             console.error(error);
         });
         // console.log(SubReddit.all);
     }, []);
+    // console.log(SubReddit.all.data.children[0])
 
     return (
         <View>
@@ -84,7 +84,7 @@ function SubFeed( props ) {
                                     <Pressable onPress={() => {navigate('Subreddit'); global.SubRedditName = item.data.subreddit}}>
                                         <View style={{ flexDirection: 'row' }}>
                                             <View>
-                                                <GetSubReddit subreddit={item.data.subreddit} />
+                                                <GetSubRedditIcon subreddit={item.data.subreddit} />
                                             </View>
                                             <View style={{ flexDirection: 'column' }}>
                                                 <Text style={styles.title}>{!SubReddit.all ? "Loading" : item.data.subreddit_name_prefixed}</Text>
@@ -147,4 +147,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default SubFeed;
+export default Feed;

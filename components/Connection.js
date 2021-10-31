@@ -11,7 +11,7 @@ function Connection({ navigation }) {
         redirectUrl: 'com.redditech://oauth2redirect/reddit',
         clientId: 'fcafYt6_OhrlQEN6NTTyUQ',
         clientSecret: '',
-        scopes: ['identity'],
+        scopes: ['identity', 'edit', 'subscribe', 'save', 'submit', 'read', 'modconfig', 'account', 'vote', 'flair', 'mysubreddits'],
         serviceConfiguration: {
             authorizationEndpoint: 'https://www.reddit.com/api/v1/authorize.compact',
             tokenEndpoint: 'https://www.reddit.com/api/v1/access_token',
