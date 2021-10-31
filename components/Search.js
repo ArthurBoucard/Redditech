@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, Image, Pressable } from 'react-native'
+import { View, Text, StyleSheet, Image, Pressable, StatusBar } from 'react-native'
 import axios from 'axios';
 import { Searchbar } from 'react-native-paper';
 import { Card } from 'react-native-elements';
@@ -37,6 +37,8 @@ function Search() {
 
     return (
         <View>
+            <StatusBar
+                    backgroundColor="white" barStyle="dark-content" />
             <Searchbar
                 placeholder="Search"
                 onChangeText={onChangeSearch}
