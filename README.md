@@ -9,6 +9,8 @@
 API call method :
 
 ```js
+import { authorize } from 'react-native-app-auth'
+
 const config = {
     redirectUrl: 'com.redditech://oauth2redirect/reddit',
     clientId: 'fcafYt6_OhrlQEN6NTTyUQ',
@@ -24,6 +26,17 @@ const config = {
         },
     },
 };
+
+const Auth = useCallback(
+    async call => {
+        try {
+            const authState = await authorize(config);
+                console.log(authState.accessToken)
+        } catch(e) {
+            console.log(e)
+        }
+    }
+)
 ```
 This returns the user token which we needs to get the user's information, subscribed subreddits, settings...
 
