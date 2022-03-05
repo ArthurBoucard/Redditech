@@ -142,7 +142,7 @@ Our UX is straight forward and simple to understand and use :
 
 ### TECHNOLOGIES
 
-We used different libraries :
+We used 2 different libraries :
 - **react-native-elements**
     - Buttons / Icons / FAB / Card
 - **react-native-paper**
