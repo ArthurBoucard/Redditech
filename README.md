@@ -147,3 +147,6 @@ We used 2 different libraries :
     - Buttons / Icons / FAB / Card
 - **react-native-paper**
     - Searchbar
+
+
+Made by Arthur BOUCARD & Lucas ARROYO with :heart:
